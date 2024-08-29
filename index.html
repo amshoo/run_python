@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Compiler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.css" />
+    <style>
+        #editor { 
+            height: 300px; 
+            width: 100%; 
+            border: 1px solid #ccc; 
+        }
+        #output {
+            border: 1px solid #ccc;
+            height: 150px;
+            overflow: auto;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Python Compiler</h1>
+    <div id="editor">print("Hello, World!")</div>
+    <button id="run">Run</button>
+    <h2>Output:</h2>
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script>
+        const editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/python");
+
+        document.getElementById('run').onclick = function() {
+            const code = editor.getValue();
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Clear previous output
+
+            // Execute the Python code using a web-based Python interpreter
+            fetch('https://some-python-execution-api.com/run', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code })
+            })
+            .then(response => response.json())
+            .then(data => {
+                outputDiv.innerHTML = data.output || data.error;
+            })
+            .catch(error => {
+                outputDiv.innerHTML = 'Error: ' + error.message;
+            });
+        };
+    </script>
+</body>
+</html>
