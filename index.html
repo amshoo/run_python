@@ -24,8 +24,7 @@
     <h1>Python Code Executor</h1>
     <div id="editor">print("Hello, World!")</div>
     <button id="run">Run</button>
-    <button id="createGraph">Create Graph</button>
-    <div id="graphOutput"></div>
+
     <h2>Output:</h2>
     <div id="output"></div>
 
@@ -52,27 +51,6 @@
             })
             .catch(error => {
                 outputDiv.innerHTML = 'Error: ' + error;
-            });
-        };
-    </script>
-
-    
-    
-    <script>
-        document.getElementById('createGraph').onclick = function() {
-            fetch('https://yourusername.pythonanywhere.com/create_graph', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const outputDiv = document.getElementById('graphOutput');
-                outputDiv.innerHTML = JSON.stringify(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
             });
         };
     </script>
