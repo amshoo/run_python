@@ -38,8 +38,10 @@
             const outputDiv = document.getElementById('output');
             outputDiv.innerHTML = ''; // Clear previous output
 
-            // Execute the Python code using a web-based Python interpreter
-            fetch('https://some-python-execution-api.com/run', {
+            // Replace with your actual API URL
+            const apiUrl = 'https://your-cors-enabled-api.com/execute'; 
+
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,7 +50,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                outputDiv.innerHTML = data.output || data.error;
+                outputDiv.innerHTML = data.output || data.error || 'No output';
             })
             .catch(error => {
                 outputDiv.innerHTML = 'Error: ' + error.message;
